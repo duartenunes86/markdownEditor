@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React Markdown Previewer</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked@3.0.2/marked.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+    <script>
+      function MarkdownPreview(props) {
+        const rawMarkup = marked(props.markdown);
+        return <div dangerouslySetInnerHTML={{ __html: rawMarkup }} />;
+      }
+
+      function App() {
+        const [markdown, setMarkdown] = React.useState("# Hello, World!");
+
+        function handleChange(event) {
+          setMarkdown(event.target.value);
+        }
+
+        return (
+          <div>
+            <textarea value={markdown} onChange={handleChange} />
+            <MarkdownPreview markdown={markdown} />
+          </div>
+        );
+      }
+
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>
